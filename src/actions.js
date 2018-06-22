@@ -4,11 +4,18 @@ export const SEARCH_MOVIES = "SEARCH_MOVIES";
 export const RECEIVE_MOVIES = "RECEIVE_MOVIES";
 export const SET_TITLE = "SET_TITLE";
 export const SEARCH_MOVIES_FAILURE = "SEARCH_MOVIES_FAILURE";
+export const RESET_SEARCH_ERROR = "RESET_SEARCH_ERROR";
 
 export function setTitle(title) {
   return {
     type: SET_TITLE,
     title
+  };
+}
+
+export function resetSearchError() {
+  return {
+    type: RESET_SEARCH_ERROR
   };
 }
 
@@ -27,7 +34,7 @@ export function searchMoviesFailure(error) {
 }
 
 function receiveMovies(title, json) {
-  console.log(json);
+  // console.log(json);
   return {
     type: RECEIVE_MOVIES,
     title,
@@ -45,11 +52,13 @@ export function fetchMovies(title) {
       fetch(`http://www.omdbapi.com/?apikey=29909c8a&s=${title}`)
         .then(
           response => {
-            console.log(response);
             response.json().then(json => {
-              dispatch(receiveMovies(title, json));
-              if (!response.ok) {
-                return Promise.reject(json);
+              console.log(json);
+              if (!response.ok || json.Response === "False") {
+                // return Promise.reject(json);
+                dispatch(searchMoviesFailure("No results found!"));
+              } else {
+                dispatch(receiveMovies(title, json));
               }
             });
           },
