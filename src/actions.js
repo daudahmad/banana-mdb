@@ -47,13 +47,14 @@ function receiveMovies(title, json) {
 
 export function fetchMovies(title) {
   return dispatch => {
+      console.log("fetchMovies getting called");
     dispatch(searchMovies(title));
     return (
       fetch(`http://www.omdbapi.com/?apikey=29909c8a&s=${title}`)
         .then(
           response => {
             response.json().then(json => {
-              console.log(json);
+              // console.log(json);
               if (!response.ok || json.Response === "False") {
                 // return Promise.reject(json);
                 dispatch(searchMoviesFailure("No results found!"));

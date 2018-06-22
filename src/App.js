@@ -36,7 +36,7 @@ class App extends Component {
 
   handleClick(event) {
     event.preventDefault();
-    console.log(`Button clicked`);
+    console.log(this.props.selectedTitle);
     if (this.props.selectedTitle.length < 2) {
       this.props.dispatch(resetSearchError());
       this.setState({ error: "Please enter at least 2 characters!" });

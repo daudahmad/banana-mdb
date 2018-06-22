@@ -7,7 +7,7 @@ function MoviePanel({ movie }) {
     <Row>
       <Col md={3} />
       <Col xs={12} md={6}>
-        <Panel>
+        <Panel data-testid="search-panel">
           <Panel.Heading>
             {movie.title} ({movie.year})
           </Panel.Heading>

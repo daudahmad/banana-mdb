@@ -39,6 +39,7 @@ function MoviesSearch({ selectedTitle, isFetching, onChange, onClick }) {
             <Input
               value={selectedTitle}
               placeholder="Enter movie name..."
+              data-testid="search-input"
               type="text"
               onChange={e => onChange(e.target.value)}
             />
